@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's build a tab selector</title>
+    <style>
+        .container{
+            width: 80%;
+            height: 50%;
+            border: 1px solid grey;
+            margin: 0 auto;
+        }
+        .selector {
+            display: flex;
+            border-bottom: 1px solid grey;
+            background-color: #f1f1f1;
+        }
+        .tab{
+            padding: 10px;
+        }
+        .tab:hover {
+           cursor: pointer;
+           background-color: darkgrey;
+        }
+        .content {
+            padding: 10px;
+        }
+        .content-body {
+            display: none;
+        }
+        .show-active {
+            display: block;
+            animation: fade 1s;
+        }
+        .tab-active{
+            background-color: darkgrey ;
+        }
+        @keyframes fade{
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="selector"> 
+            <div class="tab tab-active">
+                Shirts
+            </div>
+            <div class="tab">
+                Pants
+            </div>
+            <div class="tab">
+                Shoes
+            </div>
+        </div>
+        <div class="content">
+            <div id="Shirts" class= "content-body show-active">
+               <h4>Shirts</h4>
+               <p>Our shirts are all of the highest quality</p>
+            </div>
+            <div id="Pants" class= "content-body">
+             <h4>Pants</h4>
+             <p>Pants can be custom tailored upon request</p>
+            </div>
+            <div id="Shoes" class= "content-body">
+             <h4>Shoes</h4>
+             <p>Shoes all US sized unless indicated otherwise</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        //function to remove show-active class & add to clicked
+        function setNewActive(el) {
+           //select all content-body
+           var contentBodies = document.getElementsByClassName('content-body');
+           //remove show-active
+           for(var contentBody of contentBodies)
+              contentBody.classList.remove('show-active');
+           //add show-active (back) to clicked
+        document.getElementById(el.textContent.trim()).classList.add('show-active'); 
+        //select tab class, and loop through
+        var tabs = document.getElementsByClassName('tab');
+        for (var tab of tabs) {
+            tab.classList.remove('tab-active');
+        }
+        el.classList.add('tab-active');
+    }
+        var tabs = document.getElementsByClassName('tab');
+        for(var tab of tabs){
+              //add click listener to each tab
+            tab.addEventListener('click', function(e){
+                setNewActive(e.currentTarget);
+            }) 
+        }
+    </script> 
+</body>
+</html>
